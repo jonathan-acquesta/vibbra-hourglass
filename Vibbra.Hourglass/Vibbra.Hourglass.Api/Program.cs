@@ -1,15 +1,25 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Vibbra.Hourglass.Api.Configuration;
+using Vibbra.Hourglass.Api.MapperConfig;
+using Vibbra.Hourglass.Domain.Domains;
 using Vibbra.Hourglass.Infra.Context;
+using Vibbra.Hourglass.Infra.Interfaces;
+using Vibbra.Hourglass.Infra.Repository;
+using Vibbra.Hourglass.Service.Interfaces;
+using Vibbra.Hourglass.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerSetup();
+builder.Services.AddApiVersioning();
 
+#region Database EF
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -19,6 +29,31 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         opt.EnableRetryOnFailure(5);
     });
 });
+
+#endregion
+
+#region Service Dependence Injection
+
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+#endregion
+
+#region Repository Dependence Injection
+
+builder.Services.AddScoped<IBaseRepository<UserDomain>, ApplicationRepository<UserDomain>>();
+builder.Services.AddScoped<IBaseRepository<ProjectDomain>, ApplicationRepository<ProjectDomain>>();
+builder.Services.AddScoped<IBaseRepository<TimeDomain>, ApplicationRepository<TimeDomain>>();
+
+#endregion
+
+#region Mapper
+
+builder.Services.AddSingleton(new MapperConfiguration(config =>
+{
+    config.AddProfile<ProfileMapperConfiguration>();
+}).CreateMapper());
+
+#endregion
 
 var app = builder.Build();
 
@@ -31,6 +66,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseApiVersioning();
+app.UseSwaggerSetup();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
