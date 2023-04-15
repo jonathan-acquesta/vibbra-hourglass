@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Vibbra.Hourglass.Api\Vibbra.Hourglass.Api.csproj" />
     <ProjectReference Include="..\Vibbra.Hourglass.Service\Vibbra.Hourglass.Service.csproj" />
   </ItemGroup>
 
