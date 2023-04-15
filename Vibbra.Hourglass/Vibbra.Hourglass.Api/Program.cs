@@ -1,6 +1,12 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Vibbra.Hourglass.Api.Configuration;
 using Vibbra.Hourglass.Api.MapperConfig;
 using Vibbra.Hourglass.Domain.Domains;
@@ -9,6 +15,8 @@ using Vibbra.Hourglass.Infra.Interfaces;
 using Vibbra.Hourglass.Infra.Repository;
 using Vibbra.Hourglass.Service.Interfaces;
 using Vibbra.Hourglass.Service.Services;
+using AuthenticationService = Vibbra.Hourglass.Service.Services.AuthenticationService;
+using IAuthenticationService = Vibbra.Hourglass.Service.Interfaces.IAuthenticationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +26,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerSetup();
 builder.Services.AddApiVersioning();
+builder.Services.AddAuthentication("SchemeVibbraHourglass");
+
+ConfigureTokenJwt(builder.Configuration, builder.Services);
 
 #region Database EF
 
@@ -35,6 +46,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 #region Service Dependence Injection
 
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 #endregion
 
@@ -74,3 +86,32 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
+static void ConfigureTokenJwt(IConfiguration configuration, IServiceCollection services)
+{
+    services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+   .AddJwtBearer(options =>
+   {
+       options.SaveToken = true;
+       options.RequireHttpsMetadata = false;
+       options.TokenValidationParameters = new TokenValidationParameters()
+       {
+           ValidateIssuer = false,
+           ValidateAudience = false,
+           IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JwtSecret"]))
+       };
+   });
+    services.AddAuthorization(options =>
+    {
+        options.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+            .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+            .RequireAuthenticatedUser().Build());
+    });
+}

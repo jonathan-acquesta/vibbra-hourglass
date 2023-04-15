@@ -11,8 +11,7 @@ namespace Vibbra.Hourglass.Api.MapperConfig
             CreateMap<LoginRequestDTO, UserDomain>();
 
             CreateMap<UserDomain, UserResponseDTO>();
-            CreateMap<UserRequestPostDTO, UserDomain>();
-            CreateMap<UserRequestPutDTO, UserDomain>();
+            CreateMap<UserRequestDTO, UserDomain>();
 
             CreateMap<ProjectDomain, ProjectResponseDTO>();
             CreateMap<ProjectRequestPostDTO, ProjectDomain>();

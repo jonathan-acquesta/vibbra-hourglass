@@ -7,7 +7,7 @@ using Vibbra.Hourglass.Domain.Base;
 
 namespace Vibbra.Hourglass.Api.DTOs
 {
-    public class UserRequestPostDTO
+    public class UserRequestDTO
     {
         public string Name { get; set; } = string.Empty;
 

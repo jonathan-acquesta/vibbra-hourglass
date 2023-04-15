@@ -36,31 +36,31 @@ namespace Vibbra.Hourglass.Api.Controllers
 
         [HttpPost()]
         [ProducesResponseType(typeof(LoginResponseDTO), 200)]
-        [ProducesResponseType(typeof(ErroResponseDTO), 404)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), 404)]
         public async Task<ActionResult> Login(
           [FromBody] LoginRequestDTO loginRequestDTO)
         {
             if (loginRequestDTO == null)
-                return BadRequest();
+                return UnprocessableEntity();
 
             try
             {
                 var authUser = await _authenticationService.Authentication(_mapper.Map<UserDomain>(loginRequestDTO));
                 LoginResponseDTO loginResponseDTO = new LoginResponseDTO() { Token = authUser.Item1, User = _mapper.Map<UserResponseDTO>(authUser.Item2) };
 
-                return new JsonResult(loginResponseDTO);
+                return Ok(loginResponseDTO);
             }
             catch (InvalidPasswordException ex)
             {
-                return UnprocessableEntity(new ErroResponseDTO() { Message = ex.Message });
+                return UnprocessableEntity(new ErrorResponseDTO() { Message = ex.Message });
             }
             catch (UserNotFoundException ex)
             {
-                return Unauthorized(new ErroResponseDTO() { Message = ex.Message });
+                return Unauthorized(new ErrorResponseDTO() { Message = ex.Message });
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErroResponseDTO() { Message = ex.Message });
+                return BadRequest(new ErrorResponseDTO() { Message = ex.Message });
             }
         }
 
