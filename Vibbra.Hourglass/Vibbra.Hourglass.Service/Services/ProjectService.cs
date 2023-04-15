@@ -40,7 +40,7 @@ namespace Vibbra.Hourglass.Service.Services
 
         public async Task<ProjectDomain> Add(ProjectDomain project)
         {
-            if (String.IsNullOrEmpty(project.Title) || String.IsNullOrEmpty(project.Description))
+            if (project == null || String.IsNullOrEmpty(project.Title) || String.IsNullOrEmpty(project.Description))
                 throw new RequiredFieldException("Required fields not filled in");
 
             await ValidateTitleDuplicatedNew(project);
@@ -92,7 +92,7 @@ namespace Vibbra.Hourglass.Service.Services
             if (projectOnDb == null)
                 throw new NotFoundException("Could not find the project to update");
 
-            if (String.IsNullOrEmpty(project.Title) || String.IsNullOrEmpty(project.Description))
+            if (project == null || String.IsNullOrEmpty(project.Title) || String.IsNullOrEmpty(project.Description))
                 throw new RequiredFieldException("Required fields not filled in");
 
             projectOnDb.Title = project.Title;
