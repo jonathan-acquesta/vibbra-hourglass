@@ -38,33 +38,46 @@ namespace Vibbra.Hourglass.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserResponseDTO), 200)]
         [ProducesResponseType(typeof(ErrorResponseDTO), 404)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), 422)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), 500)]
         public async Task<IActionResult> Get(int id)
         {
             try
             {
+                if (id < 1)
+                {
+                    return UnprocessableEntity(new ErrorResponseDTO { Message = "id inválido" });
+                }
+
                 var user = await _userService.Find(id);
                 return Ok(_mapper.Map<UserResponseDTO>(user));
             }
-            catch (UserNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(new ErrorResponseDTO { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ErrorResponseDTO { Message = ex.Message });
             }
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(UserResponseDTO), 201)]
+        [ProducesResponseType(typeof(UserResponseDTO), 200)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), 409)]
         [ProducesResponseType(typeof(ErrorResponseDTO), 422)]
-        public async Task<IActionResult> Creat([FromBody] UserRequestDTO UserRequestDTO)
+        [ProducesResponseType(typeof(ErrorResponseDTO), 500)]
+        public async Task<IActionResult> Create([FromBody] UserRequestDTO userRequestDTO)
         {
-            if (UserRequestDTO == null)
+            if (userRequestDTO == null)
             {
-                return UnprocessableEntity(new ErrorResponseDTO { Message = "Invalid user data" });
+                return UnprocessableEntity(new ErrorResponseDTO { Message = "Dados do usuário inválido" });
             }
 
             try
             {
-                var user = await _userService.Add(_mapper.Map<UserDomain>(UserRequestDTO));
-                return Ok(user);
+                var user = await _userService.Add(_mapper.Map<UserDomain>(userRequestDTO));
+                return Ok(_mapper.Map<UserRequestDTO>(user));
             }
             catch (DuplicateItemException ex)
             {
@@ -72,29 +85,37 @@ namespace Vibbra.Hourglass.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErrorResponseDTO() { Message = ex.Message });
+                return StatusCode(500, new ErrorResponseDTO() { Message = ex.Message });
             }
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(UserResponseDTO), 200)]
         [ProducesResponseType(typeof(ErrorResponseDTO), 404)]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserRequestDTO UserRequestDTO)
+        [ProducesResponseType(typeof(ErrorResponseDTO), 409)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), 422)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), 500)]
+        public async Task<IActionResult> Update(int id, [FromBody] UserRequestDTO userRequestDTO)
         {
-            if (UserRequestDTO == null)
+            if (id < 1)
             {
-                return UnprocessableEntity(new ErrorResponseDTO { Message = "Invalid user data" });
+                return UnprocessableEntity(new ErrorResponseDTO { Message = "id inválido" });
+            }
+
+            if (userRequestDTO == null)
+            {
+                return UnprocessableEntity(new ErrorResponseDTO { Message = "Dados do usuário inválido" });
             }
 
             try
             {
-                var user = _mapper.Map<UserDomain>(UserRequestDTO);
+                var user = _mapper.Map<UserDomain>(userRequestDTO);
                 user.ID = id;
 
                 var updatedUser = await _userService.Update(user);
                 return Ok(_mapper.Map<UserResponseDTO>(updatedUser));
             }
-            catch(UserNotFoundException ex)
+            catch(NotFoundException ex)
             {
                 return NotFound(new ErrorResponseDTO() { Message = ex.Message });
             }
@@ -108,7 +129,7 @@ namespace Vibbra.Hourglass.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErrorResponseDTO() { Message = ex.Message });
+                return StatusCode(500, new ErrorResponseDTO() { Message = ex.Message });
             }
         }
 

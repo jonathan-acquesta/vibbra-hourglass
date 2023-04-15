@@ -50,7 +50,7 @@ namespace Vibbra.Hourglass.Service.Services
             UserDomain userDB = await _userRepository.SelectFirstBy(x => x.Login == user.Login && x.Password == user.Password);
 
             if (userDB == null)
-                throw new UserNotFoundException("Não foi possível logar, usuário não localizado.");
+                throw new NotFoundException("Não foi possível logar, usuário não localizado.");
 
             var jwtSecret = _configuration.GetSection("JwtSecret").Value ?? string.Empty;
 

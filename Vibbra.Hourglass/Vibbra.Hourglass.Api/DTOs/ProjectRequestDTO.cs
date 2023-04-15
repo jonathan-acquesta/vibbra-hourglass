@@ -7,10 +7,8 @@ using Vibbra.Hourglass.Domain.Base;
 
 namespace Vibbra.Hourglass.Api.DTOs
 {
-    public class ProjectRequestPutDTO
+    public class ProjectRequestDTO
     {
-        public int ID { get; set; }
-
         public string Title { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;

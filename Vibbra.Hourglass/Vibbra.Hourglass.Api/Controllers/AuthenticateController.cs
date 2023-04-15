@@ -36,7 +36,9 @@ namespace Vibbra.Hourglass.Api.Controllers
 
         [HttpPost()]
         [ProducesResponseType(typeof(LoginResponseDTO), 200)]
-        [ProducesResponseType(typeof(ErrorResponseDTO), 404)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), 401)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), 422)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), 500)]
         public async Task<ActionResult> Login(
           [FromBody] LoginRequestDTO loginRequestDTO)
         {
@@ -54,13 +56,13 @@ namespace Vibbra.Hourglass.Api.Controllers
             {
                 return UnprocessableEntity(new ErrorResponseDTO() { Message = ex.Message });
             }
-            catch (UserNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return Unauthorized(new ErrorResponseDTO() { Message = ex.Message });
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErrorResponseDTO() { Message = ex.Message });
+                return StatusCode(500, new ErrorResponseDTO() { Message = ex.Message });
             }
         }
 

@@ -52,7 +52,7 @@ namespace Vibbra.Hourglass.Service.Services
             var userDB = await _userRepository.SelectFirstBy(x => x.ID == id);
 
             if (userDB == null)
-                throw new UserNotFoundException("Usuário não localizado.");
+                throw new NotFoundException("Usuário não localizado.");
 
             return userDB;
         }
@@ -62,7 +62,7 @@ namespace Vibbra.Hourglass.Service.Services
             var userOnDb = await _userRepository.SelectFirstBy(x => x.ID == user.ID);
 
             if (userOnDb == null)
-                throw new UserNotFoundException("Não foi possível localizar o usuário a ser atualizado.");
+                throw new NotFoundException("Não foi possível localizar o usuário a ser atualizado.");
 
             if (String.IsNullOrEmpty(user.Email) || String.IsNullOrEmpty(user.Login) || String.IsNullOrEmpty(user.Name) || String.IsNullOrEmpty(user.Password))
                 throw new RequiredFieldException("Campos necessários não preenchidos.");
