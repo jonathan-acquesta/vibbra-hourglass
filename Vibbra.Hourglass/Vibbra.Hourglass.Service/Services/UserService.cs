@@ -38,7 +38,7 @@ namespace Vibbra.Hourglass.Service.Services
         public async Task<UserDomain> Add(UserDomain user)
         {
             if (String.IsNullOrEmpty(user.Email) || String.IsNullOrEmpty(user.Login) || String.IsNullOrEmpty(user.Name) || String.IsNullOrEmpty(user.Password))
-                throw new RequiredFieldException("Campos necessários não preenchidos.");
+                throw new RequiredFieldException("Required fields not filled in");
 
             await ValidateEmailDuplicatedNewUser(user);
             await ValidateLoginDuplicatedNewUser(user);
@@ -55,7 +55,7 @@ namespace Vibbra.Hourglass.Service.Services
             var userDB = await _userRepository.SelectFirstBy(x => x.ID == id);
 
             if (userDB == null)
-                throw new NotFoundException("Usuário não localizado.");
+                throw new NotFoundException("User not found");
 
             return userDB;
         }
@@ -65,10 +65,10 @@ namespace Vibbra.Hourglass.Service.Services
             var userOnDb = await _userRepository.SelectFirstBy(x => x.ID == user.ID);
 
             if (userOnDb == null)
-                throw new NotFoundException("Não foi possível localizar o usuário a ser atualizado.");
+                throw new NotFoundException("Could not find the user to be updated");
 
             if (String.IsNullOrEmpty(user.Email) || String.IsNullOrEmpty(user.Login) || String.IsNullOrEmpty(user.Name) || String.IsNullOrEmpty(user.Password))
-                throw new RequiredFieldException("Campos necessários não preenchidos.");
+                throw new RequiredFieldException("Required fields not filled in");
 
             userOnDb.Email = user.Email;
             userOnDb.Name = user.Name;
@@ -91,7 +91,7 @@ namespace Vibbra.Hourglass.Service.Services
                .Select(x => x.Email == user.Email);
 
             if (userDB.Count > 0)
-                throw new DuplicateItemException("E-mail já cadastrado.");
+                throw new DuplicateItemException("E-mail already registered");
         }
 
         private async Task ValidateLoginDuplicatedNewUser(UserDomain user)
@@ -100,7 +100,7 @@ namespace Vibbra.Hourglass.Service.Services
                .Select(x => x.Login == user.Login);
 
             if (userDB.Count > 0)
-                throw new DuplicateItemException("Login já cadastrado.");
+                throw new DuplicateItemException("Login already registered");
         }
 
         private async Task ValidateEmailDuplicatedUpdateUser(UserDomain user)
@@ -109,7 +109,7 @@ namespace Vibbra.Hourglass.Service.Services
                .Select(x => x.Email == user.Email && x.ID != user.ID);
 
             if (userDB.Count > 0)
-                throw new DuplicateItemException("E-mail já cadastrado.");
+                throw new DuplicateItemException("E-mail already registered");
         }
 
         private async Task ValidateLoginDuplicatedUpdateUser(UserDomain user)
@@ -118,7 +118,7 @@ namespace Vibbra.Hourglass.Service.Services
                .Select(x => x.Login == user.Login && x.ID != user.ID);
 
             if (userDB.Count > 0)
-                throw new DuplicateItemException("Login já cadastrado.");
+                throw new DuplicateItemException("Login already registered");
         }
 
         #endregion

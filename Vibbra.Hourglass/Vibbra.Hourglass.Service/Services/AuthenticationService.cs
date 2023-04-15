@@ -45,12 +45,12 @@ namespace Vibbra.Hourglass.Service.Services
         public async Task<(string, UserDomain)> Authentication(UserDomain user)
         {
             if ((String.IsNullOrEmpty(user.Login) || String.IsNullOrEmpty(user.Password)))
-                throw new InvalidPasswordException("E-mail ou senha não preenchidos.");
+                throw new InvalidPasswordException("Email or password not filled in");
 
             UserDomain userDB = await _userRepository.SelectFirstBy(x => x.Login == user.Login && x.Password == user.Password);
 
             if (userDB == null)
-                throw new NotFoundException("Não foi possível logar, usuário não localizado.");
+                throw new NotFoundException("Unable to login, user not found");
 
             var jwtSecret = _configuration.GetSection("JwtSecret").Value ?? string.Empty;
 

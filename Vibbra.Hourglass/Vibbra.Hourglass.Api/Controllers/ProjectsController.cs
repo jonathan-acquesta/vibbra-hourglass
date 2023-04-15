@@ -47,7 +47,7 @@ namespace Vibbra.Hourglass.Api.Controllers
             {
                 if (id < 1)
                 {
-                    return UnprocessableEntity(new ErrorResponseDTO { Message = "ID inválido" });
+                    return UnprocessableEntity(new ErrorResponseDTO { Message = "Invalid id" });
                 }
 
                 var project = await _projectService.Find(id);
@@ -93,7 +93,7 @@ namespace Vibbra.Hourglass.Api.Controllers
         {
             if (projectRequestDTO == null)
             {
-                return UnprocessableEntity(new ErrorResponseDTO { Message = "Dados do projeto inválidos" });
+                return UnprocessableEntity(new ErrorResponseDTO { Message = "Invalid project data" });
             }
 
             try
@@ -124,7 +124,7 @@ namespace Vibbra.Hourglass.Api.Controllers
         {
             if (projectRequestDTO == null)
             {
-                return UnprocessableEntity(new ErrorResponseDTO { Message = "Dados do projeto inválidos" });
+                return UnprocessableEntity(new ErrorResponseDTO { Message = "Invalid project data" });
             }
 
             try

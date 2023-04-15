@@ -41,7 +41,7 @@ namespace Vibbra.Hourglass.Service.Services
         public async Task<ProjectDomain> Add(ProjectDomain project)
         {
             if (String.IsNullOrEmpty(project.Title) || String.IsNullOrEmpty(project.Description))
-                throw new RequiredFieldException("Campos necessários não preenchidos.");
+                throw new RequiredFieldException("Required fields not filled in");
 
             await ValidateTitleDuplicatedNew(project);
 
@@ -59,7 +59,7 @@ namespace Vibbra.Hourglass.Service.Services
             var users = await _userRepository.Select(x => project.Users.Select(z => z.ID).Contains(x.ID));
             if (project.Users.Count > users.Count)
             {
-                throw new NotFoundException("Usuário não encontrado");
+                throw new NotFoundException("User not found");
             }
 
             return users;
@@ -70,7 +70,7 @@ namespace Vibbra.Hourglass.Service.Services
             var projectDB = await _projectRepository.SelectFirstBy(x => x.ID == id, "Users");
 
             if (projectDB == null)
-                throw new NotFoundException("Projeto não localizado.");
+                throw new NotFoundException("Project not found.");
 
             return projectDB;
         }
@@ -80,7 +80,7 @@ namespace Vibbra.Hourglass.Service.Services
             var projectsDB = (await _projectRepository.Select("Users")).ToList();
 
             if (projectsDB.Count == 0)
-                throw new NotFoundException("Nenhum projeto localizado.");
+                throw new NotFoundException("No projects found.");
 
             return projectsDB;
         }
@@ -90,10 +90,10 @@ namespace Vibbra.Hourglass.Service.Services
             var projectOnDb = await _projectRepository.SelectFirstBy(x => x.ID == project.ID, "Users");
 
             if (projectOnDb == null)
-                throw new NotFoundException("Não foi possível localizar o projeto a ser atualizado.");
+                throw new NotFoundException("Could not find the project to update");
 
             if (String.IsNullOrEmpty(project.Title) || String.IsNullOrEmpty(project.Description))
-                throw new RequiredFieldException("Campos necessários não preenchidos.");
+                throw new RequiredFieldException("Required fields not filled in");
 
             projectOnDb.Title = project.Title;
             projectOnDb.Description = project.Description;
@@ -115,7 +115,7 @@ namespace Vibbra.Hourglass.Service.Services
                .Select(x => x.Title == project.Title);
 
             if (projectDB.Count > 0)
-                throw new DuplicateItemException("Título já cadastrado.");
+                throw new DuplicateItemException("Title already registered");
         }
 
         private async Task ValidateTitleDuplicatedUpdate(ProjectDomain project)
@@ -124,7 +124,7 @@ namespace Vibbra.Hourglass.Service.Services
                .Select(x => x.Title == project.Title && x.ID != project.ID);
 
             if (projectDB.Count > 0)
-                throw new DuplicateItemException("Título já cadastrado.");
+                throw new DuplicateItemException("Title already registered");
         }
 
         #endregion

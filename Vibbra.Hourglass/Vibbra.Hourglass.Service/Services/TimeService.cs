@@ -44,10 +44,10 @@ namespace Vibbra.Hourglass.Service.Services
         public async Task<TimeDomain> Add(TimeDomain time)
         {
             if (time.StartedAt == DateTime.MinValue || time.EndedAt == DateTime.MinValue || time.ProjectID == 0 || time.UserID == 0)
-                throw new RequiredFieldException("Campos necessários não preenchidos.");
+                throw new RequiredFieldException("Required fields not filled in");
 
             if (time.StartedAt >= time.EndedAt)
-                throw new RequiredFieldException("Data final menor do que a data inicial.");
+                throw new RequiredFieldException("End date less than start date");
 
             await ValidateUser(time);
             await ValidateProject(time);
@@ -66,7 +66,7 @@ namespace Vibbra.Hourglass.Service.Services
             var timesDB = (await _timeRepository.Select(x => x.ProjectID == projectID)).ToList();
 
             if (timesDB.Count == 0)
-                throw new NotFoundException("Nenhum lançamento localizado.");
+                throw new NotFoundException("No time posting found");
 
             return timesDB;
         }
@@ -76,13 +76,13 @@ namespace Vibbra.Hourglass.Service.Services
             var timeOnDb = await _timeRepository.SelectFirstBy(x => x.ID == time.ID);
 
             if (timeOnDb == null)
-                throw new NotFoundException("Não foi possível localizar o lançamento a ser atualizado.");
+                throw new NotFoundException("Unable to locate the time posting to be updated.");
 
             if (time.StartedAt == DateTime.MinValue || time.EndedAt == DateTime.MinValue || time.ProjectID == 0 || time.UserID == 0)
-                throw new RequiredFieldException("Campos necessários não preenchidos.");
+                throw new RequiredFieldException("Required fields not filled in");
 
             if (time.StartedAt >= time.EndedAt)
-                throw new RequiredFieldException("Data final menor do que a data inicial.");
+                throw new RequiredFieldException("End date less than start date");
 
             timeOnDb.StartedAt = time.StartedAt;
             timeOnDb.EndedAt = time.EndedAt;
@@ -112,7 +112,7 @@ namespace Vibbra.Hourglass.Service.Services
                             );
 
             if (timeDB.Count > 0)
-                throw new DuplicateItemException("Lançamento em conflito com período de outros lançamento para esse usuário.");
+                throw new DuplicateItemException("Release conflicts with other time posting period for this user");
         }
 
         private async Task ValidateTimeDuplicatedUpdate(TimeDomain time)
@@ -127,7 +127,7 @@ namespace Vibbra.Hourglass.Service.Services
                             );
 
             if (timeDB.Count > 0)
-                throw new DuplicateItemException("Lançamento em conflito com período de outros lançamento para esse usuário.");
+                throw new DuplicateItemException("Release conflicts with other time posting period for this user");
         }
 
         private async Task ValidateUser(TimeDomain time)
@@ -135,7 +135,7 @@ namespace Vibbra.Hourglass.Service.Services
             var user = await _userRepository.SelectFirstBy(x => x.ID == time.UserID);
             if (user == null)
             {
-                throw new NotFoundException("Usuário não encontrado");
+                throw new NotFoundException("User not found");
             }
         }
 
@@ -144,7 +144,7 @@ namespace Vibbra.Hourglass.Service.Services
             var project = await _projectRepository.SelectFirstBy(x => x.ID == time.ProjectID);
             if (project == null)
             {
-                throw new NotFoundException("Projeto não encontrado");
+                throw new NotFoundException("Project not found");
             }
         }
 

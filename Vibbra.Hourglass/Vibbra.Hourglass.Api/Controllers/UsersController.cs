@@ -46,7 +46,7 @@ namespace Vibbra.Hourglass.Api.Controllers
             {
                 if (id < 1)
                 {
-                    return UnprocessableEntity(new ErrorResponseDTO { Message = "ID inválido" });
+                    return UnprocessableEntity(new ErrorResponseDTO { Message = "Invalid ID" });
                 }
 
                 var user = await _userService.Find(id);
@@ -71,7 +71,7 @@ namespace Vibbra.Hourglass.Api.Controllers
         {
             if (userRequestDTO == null)
             {
-                return UnprocessableEntity(new ErrorResponseDTO { Message = "Dados do usuário inválidos" });
+                return UnprocessableEntity(new ErrorResponseDTO { Message = "Invalid user data" });
             }
 
             try
@@ -103,12 +103,12 @@ namespace Vibbra.Hourglass.Api.Controllers
         {
             if (id < 1)
             {
-                return UnprocessableEntity(new ErrorResponseDTO { Message = "ID inválido" });
+                return UnprocessableEntity(new ErrorResponseDTO { Message = "Invalid ID" });
             }
 
             if (userRequestDTO == null)
             {
-                return UnprocessableEntity(new ErrorResponseDTO { Message = "Dados do usuário inválidos" });
+                return UnprocessableEntity(new ErrorResponseDTO { Message = "Invalid user data" });
             }
 
             try
