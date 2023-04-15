@@ -3,25 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vibbra.Hourglass.Api", "Vibbra.Hourglass.Api\Vibbra.Hourglass.Api.csproj", "{327B4C2D-7859-43AF-BFE3-179FD1D1E281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vibbra.Hourglass.Api", "Vibbra.Hourglass.Api\Vibbra.Hourglass.Api.csproj", "{327B4C2D-7859-43AF-BFE3-179FD1D1E281}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{8259BD2A-C688-4278-9C69-6421D0F0526D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Services", "2 - Services", "{70BBF3F0-F1BA-4685-B117-709849FB7FBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vibbra.Hourglass.Service", "Vibbra.Hourglass.Service\Vibbra.Hourglass.Service.csproj", "{99A673DD-85AF-4F70-BD00-98CE9B85B716}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vibbra.Hourglass.Service", "Vibbra.Hourglass.Service\Vibbra.Hourglass.Service.csproj", "{99A673DD-85AF-4F70-BD00-98CE9B85B716}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{70EA3DBF-53CF-48FD-A429-11951541DD5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vibbra.Hourglass.Domain", "Vibbra.Hourglass.Domain\Vibbra.Hourglass.Domain.csproj", "{E8D74A71-F56B-43FC-BC98-A7954191CCE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vibbra.Hourglass.Domain", "Vibbra.Hourglass.Domain\Vibbra.Hourglass.Domain.csproj", "{E8D74A71-F56B-43FC-BC98-A7954191CCE2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - CrossCutting", "4 - CrossCutting", "{2BD27C46-F831-45B8-B61D-8EBDA4C06A9F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Infra", "5 - Infra", "{6069CAFD-1070-4D8C-B845-D15C5D957BCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vibbra.Hourglass.CrossCutting", "Vibbra.Hourglass.CrossCutting\Vibbra.Hourglass.CrossCutting.csproj", "{51D871AA-7430-4217-86EC-AFFB0E06AC95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vibbra.Hourglass.CrossCutting", "Vibbra.Hourglass.CrossCutting\Vibbra.Hourglass.CrossCutting.csproj", "{51D871AA-7430-4217-86EC-AFFB0E06AC95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vibbra.Hourglass.Infra", "Vibbra.Hourglass.Infra\Vibbra.Hourglass.Infra.csproj", "{87DBE90B-74C9-4299-80EB-45E08C4F28F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vibbra.Hourglass.Infra", "Vibbra.Hourglass.Infra\Vibbra.Hourglass.Infra.csproj", "{87DBE90B-74C9-4299-80EB-45E08C4F28F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - Test", "6 - Test", "{162ED3F3-7444-42FC-A2C9-229F6FD7E4F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vibbra.Hourglass.Tests", "Vibbra.Hourglass.Tests\Vibbra.Hourglass.Tests.csproj", "{1C9C9D0D-F8A8-4618-82EE-6F81988257CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{87DBE90B-74C9-4299-80EB-45E08C4F28F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87DBE90B-74C9-4299-80EB-45E08C4F28F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87DBE90B-74C9-4299-80EB-45E08C4F28F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C9C9D0D-F8A8-4618-82EE-6F81988257CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9C9D0D-F8A8-4618-82EE-6F81988257CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9C9D0D-F8A8-4618-82EE-6F81988257CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9C9D0D-F8A8-4618-82EE-6F81988257CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,7 @@ Global
 		{E8D74A71-F56B-43FC-BC98-A7954191CCE2} = {70EA3DBF-53CF-48FD-A429-11951541DD5A}
 		{51D871AA-7430-4217-86EC-AFFB0E06AC95} = {2BD27C46-F831-45B8-B61D-8EBDA4C06A9F}
 		{87DBE90B-74C9-4299-80EB-45E08C4F28F2} = {6069CAFD-1070-4D8C-B845-D15C5D957BCF}
+		{1C9C9D0D-F8A8-4618-82EE-6F81988257CA} = {162ED3F3-7444-42FC-A2C9-229F6FD7E4F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D20EA606-696E-4984-BA63-97E1A1E8B6CA}
