@@ -8,10 +8,8 @@ using Vibbra.Hourglass.Domain.Base;
 
 namespace Vibbra.Hourglass.Api.DTOs
 {
-    public class TimeRequestPutDTO
+    public class TimeRequestDTO
     {
-        public int ID { get; set; }
-
         public DateTime StartedAt { get; set; }
 
         public DateTime EndedAt { get; set; }

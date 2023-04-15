@@ -12,9 +12,9 @@ namespace Vibbra.Hourglass.Domain.Domains
     {
         public int ID { get; set; }
 
-        public DateTime StartedAt { get; set; }
+        public DateTime StartedAt { get; set; } = DateTime.MinValue;
 
-        public DateTime EndedAt { get; set; }
+        public DateTime EndedAt { get; set; } = DateTime.MinValue;
 
         [ForeignKey("User")]
         public int UserID { get; set; }

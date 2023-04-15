@@ -12,9 +12,9 @@ namespace Vibbra.Hourglass.Api.DTOs
     {
         public int ID { get; set; }
 
-        public DateTime StartedAt { get; set; }
+        public DateTime StartedAt { get; set; } = DateTime.MinValue;
 
-        public DateTime EndedAt { get; set; }
+        public DateTime EndedAt { get; set; } = DateTime.MinValue;
 
         public int UserID { get; set; }
 

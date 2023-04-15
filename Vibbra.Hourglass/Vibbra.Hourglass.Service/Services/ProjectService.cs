@@ -40,6 +40,9 @@ namespace Vibbra.Hourglass.Service.Services
 
         public async Task<ProjectDomain> Add(ProjectDomain project)
         {
+            if (String.IsNullOrEmpty(project.Title) || String.IsNullOrEmpty(project.Description))
+                throw new RequiredFieldException("Campos necessários não preenchidos.");
+
             await ValidateTitleDuplicatedNew(project);
 
             project.Users = await MapUsers(project);
@@ -87,7 +90,7 @@ namespace Vibbra.Hourglass.Service.Services
             var projectOnDb = await _projectRepository.SelectFirstBy(x => x.ID == project.ID, "Users");
 
             if (projectOnDb == null)
-                throw new NotFoundException("Não foi possível localizar o usuário a ser atualizado.");
+                throw new NotFoundException("Não foi possível localizar o projeto a ser atualizado.");
 
             if (String.IsNullOrEmpty(project.Title) || String.IsNullOrEmpty(project.Description))
                 throw new RequiredFieldException("Campos necessários não preenchidos.");

@@ -37,6 +37,9 @@ namespace Vibbra.Hourglass.Service.Services
 
         public async Task<UserDomain> Add(UserDomain user)
         {
+            if (String.IsNullOrEmpty(user.Email) || String.IsNullOrEmpty(user.Login) || String.IsNullOrEmpty(user.Name) || String.IsNullOrEmpty(user.Password))
+                throw new RequiredFieldException("Campos necessários não preenchidos.");
+
             await ValidateEmailDuplicatedNewUser(user);
             await ValidateLoginDuplicatedNewUser(user);
 

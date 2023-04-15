@@ -93,10 +93,9 @@ namespace Vibbra.Hourglass.Api.Configuration
 
                 var info = new OpenApiInfo()
                 {
-                    Title = "My Open To Buy API",
+                    Title = "Vibbra Hourglas API",
                     Version = description.ApiVersion.ToString(),
                     Description = "<ul>" +
-                     "<li>Descrição detalhada do serviços desta integração</li>" +
                      "<li>Descrição detalhada do serviços desta integração</li>" +
                      "</ul>"
                 };

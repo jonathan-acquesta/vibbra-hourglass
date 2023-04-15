@@ -17,8 +17,7 @@ namespace Vibbra.Hourglass.Api.MapperConfig
             CreateMap<ProjectRequestDTO, ProjectDomain>().ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.Users.Select(u => new UserDomain { ID = u }).ToList()));
 
             CreateMap<TimeDomain, TimeResponseDTO>();
-            CreateMap<TimeRequestPostDTO, TimeDomain>();
-            CreateMap<TimeRequestPutDTO, TimeDomain>();
+            CreateMap<TimeRequestDTO, TimeDomain>();
         }
     }
 }
