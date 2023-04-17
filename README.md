@@ -1,96 +1,100 @@
-# Vibbra Ampulheta
+# Vibbra.Hourglass
 
-Público Alvo
-O aplicativo tem como público alvo profissionais que tem a necessidade de apontar horas de trabalho em projetos associados.
+The Hourglass project is a REST API that manages projects, users, and time records. It provides authentication and authorization to ensure that only authenticated users can access the API resources. Here are the main features based on the provided controllers:
 
-Estrutura
-Temos 3 entidades principais: usuário, projeto e tempo
+## Features
 
-## Getting started
+###Authentication
+Users can be authenticated. To customize user authentication, use the AuthenticateController and its methods.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+To authenticate a user: POST /api/v1/authenticate
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+###Users
+Users can be created, updated, and retrieved. To manage users, use the UsersController and its methods.
 
-## Add your files
+To create a user: POST /api/v1/users
+To update a user: PUT /api/v1/users/{id}
+To retrieve a user: GET /api/v1/users/{id}
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+###Projects
+Projects can be created, updated, retrieved, and listed. To work with projects, use the ProjectsController and its methods.
+
+To create a project: POST /api/v1/projects
+To update a project: PUT /api/v1/projects/{id}
+To retrieve a project: GET /api/v1/projects/{id}
+To list all projects: GET /api/v1/projects
+
+###Time Records
+Time records can be created, updated, and retrieved based on the project they are associated with. To manage time records, use the TimesController and its methods.
+
+To create a time record: POST /api/v1/times
+To update a time record: PUT /api/v1/times/{timeID}
+To retrieve time records for a project: GET /api/v1/times/{projectID}
+
+## Technologies
+
+- AutoMapper
+- ASP.NET Core
+- Entity Framework Core
+- JWT Authentication
+- SQL Server
+
+## Installation and Execution
+
+Follow the steps below to clone and set up the project in your local environment:
+
+1. Open a terminal or command prompt.
+
+2. Clone the project repository using the following command:
 
 ```
-cd existing_repo
-git remote add origin https://git.vibbra.com.br/jonathan-1681221647/vibbra-ampulheta.git
-git branch -M main
-git push -uf origin main
+git clone https://git.vibbra.com.br/jonathan-1681221647/vibbra-ampulheta.git
 ```
 
-## Integrate with your tools
+3. Navigate to the cloned project directory:
+```cd vibbra-ampulheta```
 
-- [ ] [Set up project integrations](https://git.vibbra.com.br/jonathan-1681221647/vibbra-ampulheta/-/settings/integrations)
+4. Restore the project dependencies:
+```dotnet restore```
 
-## Collaborate with your team
+5. Build the project:
+```dotnet build```
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+6. Configure the database connection string in the appsettings.json file. Make sure the database is installed and available.
+```{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=HourglassDB;User Id=dbuser;Password=dbpassword;"
+  }
+}```
 
-## Test and Deploy
+7. Run the Entity Framework Core migrations to create and update the database:
+```dotnet ef database update```
 
-Use the built-in continuous integration in GitLab.
+8. Run the project locally:
+```dotnet run --project Vibbra.Hourglass.Api```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Tests
 
-***
+The Vibbra.Hourglass project includes a separate project called Vibbra.Hourglass.Test, which contains unit and integration tests. The test project uses the NUnit framework and the Moq library for unit and integration tests. Additionally, the project uses Coverlet for code coverage collection.
 
-# Editing this README
+To run the project tests, follow the steps below:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+1. Navigate to the project directory containing the solution (.sln) file using the terminal or command prompt.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+2. Run the following command to restore the project dependencies, including test dependencies:
+```dotnet restore```
 
-## Name
-Choose a self-explaining name for your project.
+3. Run the following command to execute all tests in the project:
+```dotnet test```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+NUnit will run all unit and integration tests in the Vibbra.Hourglass.Test project and display the results in the terminal or command prompt.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Author
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- I am Jonathan Caravaggio Acquesta, a highly qualified professional with extensive experience in software development and project management using agile methodologies, such as Scrum and Kanban. I have a solid academic background, with an MBA in Project Management and Organizational Processes and a degree in IT Business Management, as well as various certifications, such as PSM I, KMP II, KSI, KSD, and MCTS.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+- My experience includes working for companies like CBYK, Unous Business Intelligence, Talent Four Consulting, Sistema Pri Engineering, CPM Braxis Capgemini, Adedo, CNPBrasil, and Prosegur Brasil, holding positions such as Agile Coach, Project Manager, Agile Master, Scrum Master, Development Analyst, and Programmer.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- I have knowledge in web and app development, using technologies like Vue JS, ASP.NET MVC, C#, VB.NET, and SQL Server, as well as skills in team management and conflict resolution. I am fluent in Portuguese, have advanced English skills, and basic knowledge of Italian and Spanish.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- My diverse experience and technical and managerial skills make me the right person to work on projects seeking to add value through the application of agile methodologies and the development of high-quality software.
