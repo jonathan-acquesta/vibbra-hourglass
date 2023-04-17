@@ -39,6 +39,17 @@ To retrieve time records for a project: GET /api/v1/times/{projectID}
 - JWT Authentication
 - SQL Server
 
+## Domain-Driven Design (DDD) Architecture
+The DDD architecture is a software development approach that focuses on the problem domain and collaboration between subject matter experts and developers to create a rich and efficient model. The architecture is divided into layers, including Domain, Application, Infrastructure, and Presentation.
+
+Layers
+- Application
+- Services
+- Domain
+- CrossCutting
+- Infra
+- Test
+
 ## Installation and Execution
 
 Follow the steps below to clone and set up the project in your local environment:
