@@ -4,19 +4,19 @@ The Hourglass project is a REST API that manages projects, users, and time recor
 
 ## Features
 
-###Authentication
+- Authentication
 Users can be authenticated. To customize user authentication, use the AuthenticateController and its methods.
 
 To authenticate a user: POST /api/v1/authenticate
 
-###Users
+- Users
 Users can be created, updated, and retrieved. To manage users, use the UsersController and its methods.
 
 To create a user: POST /api/v1/users
 To update a user: PUT /api/v1/users/{id}
 To retrieve a user: GET /api/v1/users/{id}
 
-###Projects
+- Projects
 Projects can be created, updated, retrieved, and listed. To work with projects, use the ProjectsController and its methods.
 
 To create a project: POST /api/v1/projects
@@ -24,7 +24,7 @@ To update a project: PUT /api/v1/projects/{id}
 To retrieve a project: GET /api/v1/projects/{id}
 To list all projects: GET /api/v1/projects
 
-###Time Records
+- Time Records
 Time records can be created, updated, and retrieved based on the project they are associated with. To manage time records, use the TimesController and its methods.
 
 To create a time record: POST /api/v1/times
@@ -43,35 +43,47 @@ To retrieve time records for a project: GET /api/v1/times/{projectID}
 
 Follow the steps below to clone and set up the project in your local environment:
 
-1. Open a terminal or command prompt.
+- 1. Open a terminal or command prompt.
 
-2. Clone the project repository using the following command:
+- 2. Clone the project repository using the following command:
 
 ```
 git clone https://git.vibbra.com.br/jonathan-1681221647/vibbra-ampulheta.git
 ```
 
-3. Navigate to the cloned project directory:
-```cd vibbra-ampulheta```
+- 3. Navigate to the cloned project directory:
+```
+cd vibbra-ampulheta
+```
 
-4. Restore the project dependencies:
-```dotnet restore```
+- 4. Restore the project dependencies:
+```
+dotnet restore
+```
 
-5. Build the project:
-```dotnet build```
+- 5. Build the project:
+```
+dotnet build
+```
 
-6. Configure the database connection string in the appsettings.json file. Make sure the database is installed and available.
-```{
+- 6. Configure the database connection string in the appsettings.json file. Make sure the database is installed and available.
+```
+{
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Database=HourglassDB;User Id=dbuser;Password=dbpassword;"
   }
-}```
+}
+```
 
-7. Run the Entity Framework Core migrations to create and update the database:
-```dotnet ef database update```
+- 7. Run the Entity Framework Core migrations to create and update the database:
+```
+dotnet ef database update
+```
 
-8. Run the project locally:
-```dotnet run --project Vibbra.Hourglass.Api```
+- 8. Run the project locally:
+```
+dotnet run --project Vibbra.Hourglass.Api
+```
 
 ## Tests
 
@@ -79,13 +91,17 @@ The Vibbra.Hourglass project includes a separate project called Vibbra.Hourglass
 
 To run the project tests, follow the steps below:
 
-1. Navigate to the project directory containing the solution (.sln) file using the terminal or command prompt.
+- 1. Navigate to the project directory containing the solution (.sln) file using the terminal or command prompt.
 
-2. Run the following command to restore the project dependencies, including test dependencies:
-```dotnet restore```
+- 2. Run the following command to restore the project dependencies, including test dependencies:
+```
+dotnet restore
+```
 
-3. Run the following command to execute all tests in the project:
-```dotnet test```
+- 3. Run the following command to execute all tests in the project:
+```
+dotnet test
+```
 
 NUnit will run all unit and integration tests in the Vibbra.Hourglass.Test project and display the results in the terminal or command prompt.
 
